@@ -29,4 +29,3 @@ console.log('before the function call', myObj); // 'Alice'
 modifyObject(myObj);
 
 console.log('after the function call', myObj); // 'Bob' // 'Alice'
-

@@ -34,6 +34,3 @@ const copy = student;
 student = null;
 
 copy.sayMyName();
-
-
-
