@@ -1,0 +1,20 @@
+{
+  "name": "week2-testing-package",
+  "version": "0.1.0",
+  "description": "Having fun with unit testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha",
+    "list": "ls -la"
+  },
+  "keywords": [
+    "testing",
+    "mocha"
+  ],
+  "author": "andy",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^9.2.2"
+  }
+}
