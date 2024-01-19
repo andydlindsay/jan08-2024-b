@@ -1,11 +1,12 @@
 # W02D04 - Promises
 
 ### To Do
-- [x] Illustrate the "callback waterfall" (callback hell) problem
-- [x] Introduction to Promises
-- [x] Error handling with Promises (vs callbacks)
-- [x] Parallelizing async things (Promise.race and Promise.all)
+- [] Illustrate the "callback waterfall" (callback hell) problem
+- [] Introduction to Promises
 - [] Creating our own Promises
+- [] Error handling with Promises (vs callbacks)
+- [] Parallelizing async things (Promise.race and Promise.all)
+
 
 ### Promises
 - An object that may (or may not) resolve to a value in the future

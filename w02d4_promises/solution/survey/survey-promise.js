@@ -1,3 +1,16 @@
+//
+//            Pending Promise
+//                  |
+//                  |
+//                  |
+//                  |
+//             -------------
+//             |           |
+//             |           |
+//             |           |
+//          Resolve      Reject
+//
+
 const readline = require('readline-promise').default;
 
 const rlp = readline.createInterface({
@@ -8,10 +21,6 @@ const rlp = readline.createInterface({
 const answers = [];
 
 rlp.questionAsync('What do you think of Node.js? ')
-  .then((answer) => {
-    answers.push(answer);
-    return rlp.questionAsync('What\'s your name? ');
-  })
   .then((answer) => {
     answers.push(answer);
     return rlp.questionAsync('What\'s your favourite activity? ');
