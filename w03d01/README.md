@@ -6,89 +6,111 @@
 - [x] Middleware
 - [x] Cannot Set Headers Error
 
-### Web Server
-* that serves up content for the web
-* files, images, videos, text content
-* understands HTTP
-
-### HTTP
-* HyperText Transfer Protocol
-* Request Response Cycle
-
-client <======= tcp/http =========> server
-response
-
-### Request
-* what we want to accomplish; HTTP verb/method
-  * GET => I'd like to retrieve something
-  * POST => I'd like to send info to the server
-* what do we want to do it to? path/url
-  * www.example.com/products   /home /about
-* body
-  * whatever content gets sent
-
-### Response
-* status code
-  * 1xx => low-level routing
-  * 2xx => everything is okay
-  * 3xx => redirection
-  * 4xx => client has made a mistake
-  * 5xx => there's something wrong with the server
-* body
+### Web Servers
+* From [MDN](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_web_server)
+> ...a web server includes several parts that control how web users access hosted files, at minimum an HTTP server. An HTTP server is a piece of software that understands URLs (web addresses) and HTTP (the protocol your browser uses to view webpages).
+* Communicates using the HTTP protocol which is a `request -> response` protocol
+* A web server listens for incoming requests and responds with a status code and (usually) content of some kind
+* Content can be virtually anything: images, videos, static files, dynamically rendered files, or just pure data (usually JSON)
+* We have 65,535 ports for each internet connection; we need to choose one for our web server to listen on
 
 ```js
-// TCP server
-const net = require('net');
+// a basic web server built using Node's http module
+const http = require('http');
+const port = 3000;
 
-const server = net.createServer();
-const port = 4001;
+// create the server
+const server = http.createServer();
 
-server.on('connection', (connection) => {});
+// listen for incoming requests
+server.on('request', (request, response) => {
+  response.write('hello world'); // add content to the response
+  response.end(); // send the response
+});
 
-server.listen(port);
+// start the server listening on the specified port
+server.listen(port, () => {
+  console.log(`server listening on port ${port}`);
+});
 ```
 
+* Instead of responding the same way to every request that comes in, we can program the web server to respond differently depending on the specifics of the request
+
 ```js
-// HTTP server
-const http = require('http');
+// add custom routes
+server.on('request', ((req, res) => {
+  const route = `${req.method} ${req.url}`;
 
-const server = http.createServer();
-const port = 4001;
+  switch (route) {
+    case 'GET /':
+      res.end('This is a GET request to "/"');
+      break;
+    case 'GET /users':
+      res.end('This is a GET request to "/users"');
+      break;
+    default:
+      res.end('Route not found');
+  }
+});
+```
 
-server.on('request', (request, response) => {});
+### Express.js
+* A _framework_ for building web servers written in JavaScript
+* The main use for _Express_ is to simplify the creation of route handlers
 
-server.listen(port);
+```js
+// basic Express server
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('thanks for visiting "/"');
+});
+
+app.listen(port, () => {
+  console.log(`app is listening on port ${port}`);
+});
 ```
 
 ### Middleware
-* code that sits between the request and the response
-* function
-* parsing => turning data from one format to another
+* _Middleware_ is code (in the form of functions) that runs between the incoming request and the outgoing response
+* ExpressJS on its own has very little functionality; it is through the use of middleware that the real power of Express comes out
+* There are many popular middleware packages available to us via NPM (or Yarn), for example:
+  * [`body-parser`](https://expressjs.com/en/resources/middleware/body-parser.html): Parses the _body_ of the incoming request, converting it to a JS object and attaching it to the `request` object (accessible with `req.body`)
+  * [`cookie-parser`](https://expressjs.com/en/resources/middleware/cookie-parser.html): Parses the _cookie_ header, converting it to an object and attaching it to the `request` object (accessible with `req.cookies`)
+  * [`morgan`](https://expressjs.com/en/resources/middleware/morgan.html): A _logger_ that logs all requests/responses to the web servers console
+* We let our Express know to use the piece of middleware via the `.use` method
 
-                                server
-client <========== tcp/http => middleware <===> middleware <====> route handler
-response
-                              body-parser       cookie-parser
-                              request.body      request.cookies
-                              next()            next()
+```js
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
+// let Express know to use the middleware
+app.use(bodyParser.urlEncoded({ extended: false }));
+app.use(morgan('dev'));
+```
 
+### Custom Middleware
+* We aren't limited to using middleware that someone else has written, we can freely create our own
+* To define custom middleware, we pass a callback function to the `.use` method
+* The callback function is passed the `request` and `response` objects as well as a special function `next` which our custom middleware will call to indicate that the middleware has finished running
 
+```js
+app.use((req, res, next) => {
+  // do something with the request and/or response objects
+  console.log(`New request: ${req.method} ${req.url}`);
 
+  // call the next step in the middleware chain
+  next();
+});
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### Useful Links
+- [MDN: What is a web server?](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_web_server)
+- [Node Docs: http module](https://nodejs.org/api/http.html)
+- [ExpressJS](https://expressjs.com/)
+- [Popular Express Middleware](https://expressjs.com/en/resources/middleware.html)
+- [Writing Custom Middleware](https://expressjs.com/en/guide/writing-middleware.html)
