@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Edit URL</title>
+</head>
+<body>
+	
+	<h1>Edit URL</h1>
+
+	<form method="POST" action="/urls/<%= key %>/edit">
+		<label for="short">Short</label>
+		<input id="short" type="text" name="short" value="<%= originalURL %>"/>
+		<br/>
+		<label for="long">Long</label>
+		<input id="long" type="text" name="long" value="<%= lengthenedURL %>"/>
+		<br/>
+		<button>Update</button>
+	</form>
+
+</body>
+</html>

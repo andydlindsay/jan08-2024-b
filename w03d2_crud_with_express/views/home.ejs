@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Lengthened URLs</title>
+</head>
+
+<body>
+
+  <h1>URL Lengthener</h1>
+
+  <ul>
+      <% for (let key in lengthenedURLs) { %>
+        <li><%= lengthenedURLs[key].originalURL %>
+          [<a href="/urls/<%= key %>">👀</a>]
+          [<a href="/urls/<%= key %>/delete">🗑️</a>]
+          [<a href="/urls/<%= key %>/edit">✏️</a>]
+        </li>
+      <% } %>
+  </ul>
+
+  <a href="/urls/new">➕ </a>
+
+</body>
+
+</html>
