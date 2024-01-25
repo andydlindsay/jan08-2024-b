@@ -1,6 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const port = 54321;
@@ -9,12 +11,12 @@ const users = {
   abc: {
     id: "abc",
     username: "alice",
-    password: "1234",
+    password: bcrypt.hashSync('1234'),
   },
   def: {
     id: "def",
     username: "bob",
-    password: "5678",
+    password: bcrypt.hashSync('5678'),
   },
 };
 
@@ -24,7 +26,11 @@ app.set('view engine', 'ejs');
 // middleware
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false })); // creates and populates req.body
-app.use(cookieParser()); // creates and populates req.cookies
+// app.use(cookieParser()); // creates and populates req.cookies
+app.use(cookieSession({
+  name: 'whatever',
+  keys: ['jkdfajksdhf'],
+}));
 
 // GET /login
 app.get('/login', (req, res) => {
@@ -58,14 +64,18 @@ app.post('/login', (req, res) => {
   }
 
   // do the passwords NOT match
-  if (foundUser.password !== password) {
+  const result = bcrypt.compareSync(password, foundUser.password);
+
+  // if (foundUser.password !== password) {
+  if (!result) {
     return res.status(400).send('passwords do not match');
   }
 
   // yay! happy path!
 
   // set a cookie
-  res.cookie('userId', foundUser.id);
+  req.session.userId = foundUser.id;
+  // res.cookie('userId', foundUser.id);
 
   // redirect the user somewhere
   res.redirect('/protected');
@@ -74,7 +84,8 @@ app.post('/login', (req, res) => {
 // GET /protected
 app.get('/protected', (req, res) => {
   // grab the userId from the cookies
-  const userId = req.cookies.userId;
+  const userId = req.session.userId;
+  // const userId = req.cookies.userId;
 
   // do they NOT have a cookie?
   if (!userId || !users[userId]) {
@@ -97,7 +108,9 @@ app.get('/protected', (req, res) => {
 // POST /logout
 app.post('/logout', (req, res) => {
   // clear the cookie
-  res.clearCookie('userId');
+  // res.clearCookie('userId');
+  // req.session.userId = null; // { userId: null }
+  req.session = null; // clear all cookies
 
   // send the user somewhere
   res.redirect('/login');
@@ -138,11 +151,13 @@ app.post('/register', (req, res) => {
 
   // create a new user object
   const id = Math.random().toString(36).substring(2, 5);
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
 
   const user = {
     id: id,
     username: username,
-    password: password,
+    password: hash,
   };
 
   users[id] = user;
