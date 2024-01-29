@@ -1,0 +1,16 @@
+{
+  "name": "w04d01",
+  "version": "1.0.0",
+  "description": "### To Do * [x] Demo this week's project * [ ] Semantic Tags * [ ] Attributes * [ ] Intro to CSS * [ ] Inline styles * [ ] Style element * [ ] Selectors * [ ] DevTools * [ ] Box Model and Box Sizing * [ ] External Stylesheets * [ ] CSS Resets/Normalize * [ ] Specificity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  }
+}
