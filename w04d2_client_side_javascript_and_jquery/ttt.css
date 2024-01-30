@@ -1,0 +1,26 @@
+td {
+	border: 4px solid black;
+	width: 200px;
+	height: 200px;
+	border-radius: 55px;
+}
+
+body {
+	background-color: lightgray;
+}
+
+.X {
+	background-color: blue;
+}
+
+.O {
+	background-color: red;
+}
+
+table tr.row {
+	border: 4px solid black;
+}
+
+.dashed {
+	border-style: dashed;
+}
