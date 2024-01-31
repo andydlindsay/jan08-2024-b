@@ -1,0 +1,17 @@
+.food-item {
+  border: 2px solid #bada55;
+  border-radius: 15px;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+article header {
+  color: olivedrab;
+  text-align: center;
+}
+
+article footer {
+  display: flex;
+  justify-content: space-between;
+  color: #0ff1ce;
+}
