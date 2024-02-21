@@ -14,3 +14,4 @@
 * [W05W01 - SQL Intro](/w05d01/)
 * [W05D03 - SQL from our Apps](/w05d03/)
 * [W05D05 - Midterm Kickoff](/w05d05/)
+* [W07D03 - State Management and Immutable Update Patterns](/w07d03/)
