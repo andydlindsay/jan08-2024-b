@@ -16,3 +16,6 @@
 * [W05D05 - Midterm Kickoff](/w05d05/)
 * [W07D03 - State Management and Immutable Update Patterns](/w07d03/)
 * [W07D05 - Custom Hooks](/w07d05/)
+* [W08D01 - React Review](/w08d01/)
+* [W08D02 - Class-based Components](/w08d4_class_based_components/)
+* [W08D03 - Unit & Integration Testing](/w08d03/)
