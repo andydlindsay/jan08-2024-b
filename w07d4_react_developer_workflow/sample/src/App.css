@@ -1,0 +1,19 @@
+body {
+	background-color: grey;
+}
+
+.board {
+	display: flex;
+	flex-wrap: wrap;
+
+	width: 350px;
+	height: 350px;
+	border: 1px solid chartreuse;
+}
+
+.cell {
+	margin: 5px;
+	height: 100px;
+	width: 100px;
+	border: 1px solid blueviolet;
+}
