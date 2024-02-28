@@ -1,4 +1,4 @@
-import { calcStatus } from '../helpers'
+import { calcStatus, robotSupplies } from '../helpers';
 
 describe('announceResult function', () => {
   let fakeState;
@@ -33,4 +33,28 @@ describe('announceResult function', () => {
   test('returns "Waiting" if nothing is passed in', () => {
     expect(calcStatus()).toBe('Waiting');
   });
+});
+
+// a function to choose the robot item
+describe('robotSupplies function', () => {
+
+  test('if isCheating is true, then function returns the winning item', () => {
+    const playerSelection = 'Moai';
+    const isCheating = true;
+    const actual = robotSupplies(playerSelection, isCheating);
+
+    const expected = 'Tree';
+
+    expect(actual).toBe(expected);
+  });
+
+  test('if isCheating is false, returns a valid item', () => {
+    const playerSelection = 'Moai';
+    const actual = robotSupplies(playerSelection);
+
+    const options = ['Moai', 'Axe', 'Tree'];
+    // expect(options.includes(actual)).toBe(true);
+    expect(options).toContain(actual);
+  });
+
 });
