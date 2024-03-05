@@ -1,13 +1,13 @@
 # BREAKOUT - Rails Intro
 
 ### To Do
-* [ ] `rails new` command
-* [ ] Explore generated folder structure
-* [ ] `rails routes` command
-* [ ] Adding routes
-* [ ] Adding controllers
-* [ ] Rendering ERB
-* [ ] Questions?
+* [x] `rails new` command
+* [x] Explore generated folder structure
+* [x] `rails routes` command
+* [x] Adding routes
+* [x] Adding controllers
+* [x] Rendering ERB
+* [x] Questions?
 
 
 
